@@ -1,0 +1,50 @@
+{
+  "name": "microfront-root",
+  "version": "1.0.0",
+  "description": "micro front web application",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node ./cli/run.js --mode development",
+    "build": "node ./cli/run.js --mode production",
+    "serve1": "webpack serve",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halaproliu/microfront-root.git"
+  },
+  "keywords": [
+    "micro",
+    "js",
+    "webpack"
+  ],
+  "author": "halapro.liu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/halaproliu/microfront-root/issues"
+  },
+  "homepage": "https://github.com/halaproliu/microfront-root#readme",
+  "devDependencies": {
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.3.0",
+    "dotenv": "^10.0.0",
+    "dotenv-expand": "^5.1.0",
+    "html-webpack-plugin": "^5.3.2",
+    "minimist": "^1.2.5",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.3.0",
+    "stylus": "^0.55.0",
+    "stylus-loader": "^3.0.2",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^5.55.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.3.0"
+  },
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.2",
+    "vuex": "^3.6.2"
+  }
+}
