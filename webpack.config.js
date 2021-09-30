@@ -3,10 +3,11 @@ const { VueLoaderPlugin } = require('vue-loader')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const ModuleFederationPlugin = webpack.container.ModuleFederationPlugin
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
-    app: path.resolve(__dirname, './src/main.js')
+    utils: path.resolve(__dirname, './src/main.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -14,6 +15,7 @@ module.exports = {
   },
   devtool: process.env.NODE_ENV === 'production' ? '' : 'eval-cheap-module-source-map',
   resolve: {
+    extensions: ['.vue', '.jsx', '.js', 'json'],
     alias: {
       '@': path.resolve(__dirname, './src')
     }
@@ -50,7 +52,29 @@ module.exports = {
       PRODUCTION: JSON.stringify(true)
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: path.resolve(process.cwd(), './public/index.html'),
+      minify: {
+        removeComments: true
+      }
     }),
-  ]
+    new ModuleFederationPlugin({
+      name: 'utils',
+      library: { type: 'var', name: 'utils' },
+      filename: 'utils.js',
+      exposes: {
+        './Button': './src/components/Button.vue'
+      }
+    })
+  ],
+  devServer: {
+    compress: true,
+    port: 8082,
+    hot: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, content-type, Authorization",
+    },
+  }
 }
